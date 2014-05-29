@@ -8,17 +8,18 @@ import (
 )
 
 func main() {
-  fmt.Println("foo")
-  fmt.Println(os.Getenv("FOURSQUARE_API_SECRET"))
-  fmt.Println(os.Getenv("FOURSQUARE_API_ID"))
-  client := fs.NewFSVenuesClient(os.Getenv("FOURSQUARE_API_ID"),
-    os.Getenv("FOURSQUARE_API_SECRET"))
-  params := make(map[string]string)
-  params["ll"] = "34,-122"
-  venues, err := client.GetVenue(params)
+  venues, err := getVenues()
   if err != nil {
     log.Fatal(err)
   }
 
   fmt.Println(venues)
+}
+
+func getVenues() (interface{}, error) {
+  client := fs.NewFSVenuesClient(os.Getenv("FOURSQUARE_API_ID"),
+    os.Getenv("FOURSQUARE_API_SECRET"))
+  params := make(map[string]string)
+  params["ll"] = "37.769,-122.430"
+  return client.GetVenues(params)
 }
